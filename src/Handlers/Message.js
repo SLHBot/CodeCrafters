@@ -49,7 +49,7 @@ module.exports = MessageHandler = async (messages, client) => {
             client.cmd.get(cmdName) ||
             client.cmd.find((cmd) => cmd.command.aliases && cmd.command.aliases.includes(cmdName))
 
-        if (!command) return M.reply(`💔 *No such command found!!*`)
+        // if (!command) return M.reply(`💔 *No such command found!!*`)
         if (!groupAdmins.includes(sender) && command.command.category == 'moderation')
             return M.reply('🟨 *User Missing Admin Permission*')
         if (
@@ -129,7 +129,7 @@ const experience = async (client, sender, M, from, cmd) => {
         from,
         {
             video: {
-                url: 'https://media.tenor.com/msfmevhmlDAAAAPo/anime-chibi.mp4'
+                url: 'https://media.tenor.com/eIPm-iijPjQAAAPo/my-code.mp4'
             },
             caption: `🎉 Congratuations! You've Leveled Up!
 

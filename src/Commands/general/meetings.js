@@ -6,15 +6,15 @@ module.exports.execute = async (client, flag, arg, M) => {
   let caption = ''
     const length = result.length >= 10 ? 10 : result.length
     for (let i = 0; i < length; i++) {
-        caption += `*#${i + 1}*\n 📅 *Date: ${result[i].Date}*\n ${result[i].Batch} *Event: ${result[i].Title}*\n ⏰ *Time: ${
+        caption += `*#${i + 1}*\n 📅 Date: *${result[i].Date}*\n ${result[i].Batch} Event: *${result[i].Title}*\n ⏰ Time: *${
             result[i].STime
-        } to ${result[i].ETime}*\n 🌐 *Online - Click Here to Join: ${result[i].Link}*\n\n`
+        } to ${result[i].ETime}*\n 👨‍🏫 Speaker: *අදාල නෑනේ.*\n 📍 Location: *Colombo*  \n 🌐 *Online - Click Here to Join: ${result[i].Link}*\n\n`
     }
   await client.sendMessage(M.from, { image, caption }, { quoted: M })
 }
 
 module.exports.command = {
-  name: 'meetings',
+  name: 'meetings*',
   aliases: ['script'],
   category: 'general',
   usage: '',
