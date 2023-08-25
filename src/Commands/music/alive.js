@@ -1,9 +1,9 @@
 module.exports.execute = async (client, flag, arg, M) => {
-    M.reply('*Hwllo Human* 🤖')
+    M.reply('*කොහොමද යාළුවා* 😇')
 }
 
 module.exports.command = {
-    name: 'alive',
+    name: 'hi*',
     aliases: ['a'],
     category: 'music',
     usage: '',
