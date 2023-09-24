@@ -131,7 +131,7 @@ const experience = async (client, sender, M, from, cmd) => {
             video: {
                 url: 'https://media.tenor.com/eIPm-iijPjQAAAPo/my-code.mp4'
             },
-            caption: `🎉 Congratuations! You've Leveled Up!
+            caption: `🎉 Congratuations! You've Leveled Up! \n and thanks for using Code Crafters whatsapp service.
 
              *${level} ---> ${level + 1}* 🎊`,
             gifPlayback: true

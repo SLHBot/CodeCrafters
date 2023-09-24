@@ -55,8 +55,8 @@ module.exports.execute = async (client, flag, arg, M) => {
 
 👋 *Hi ${M.pushName}* 🍃!
 
-🎋 *Support us by following us on instagram:*
-https://www.instagram.com/das_abae
+🎋 *Support us by following us on youtube:*
+https://www.youtube.com/GeekHirusha
 
 This help menu is designed to help you get started with the bot.`
         base += '\n\n ⟾ *📪Command list📪*'

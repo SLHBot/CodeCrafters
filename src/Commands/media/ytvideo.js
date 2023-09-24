@@ -13,33 +13,40 @@ module.exports.execute = async (client, flag, arg, M) => {
     if (!term) return M.reply('🟨 *Please use this command with a valid youtube contant term*')
     if (!YT.validateURL(term.trim())) return M.reply('🟨 *Please use this command with a valid youtube.com link*')
     const { videoDetails } = await YT.getInfo(term)
-    M.reply('🟩 *Downloading has started please have some pesence*')
-    let text = `⚡ *Title: ${videoDetails.title}*\n\n🚀 *Views: ${videoDetails.viewCount}*\n\n🎞 *Type: Video*\n\n⏱ *Duration: ${videoDetails.lengthSeconds}*\n\n📌 *Channel: ${videoDetails.author.name}*\n\n📅 *Uploaded: ${videoDetails.uploadDate}*\n\n🌍 *Url: ${videoDetails.video_url}*\n\n🎬 *Description:* ${videoDetails.description}`
+    await client.sendMessage(M.from, {
+        delete: M.key
+    })
+    // M.reply('🟩 *Downloading has started please have some pesence*')
+    let text = `☝🏻 *Title: ${videoDetails.title}*\n\n🚀 *Views: ${videoDetails.viewCount}*\n\n🎞 *Type: Video*\n\n⏱ *Duration: ${videoDetails.lengthSeconds}*\n\n📌 *Channel: ${videoDetails.author.name}*\n\n📅 *Uploaded: ${videoDetails.uploadDate}*\n\n🌍 *Url: ${videoDetails.video_url}*\n\n🎬 *Description:* ${videoDetails.description}`
 
-    client.sendMessage(
-        M.from,
-        {
-            image: {
-                url: `https://i.ytimg.com/vi/${videoDetails.videoId}/maxresdefault.jpg`
-            },
-            caption: text
-        },
-        {
-            quoted: M
-        }
-    )
-    if (Number(videoDetails.lengthSeconds) > 1800) return M.reply('Cannot download video longer than 30 minutes')
+    // client.sendMessage(
+    //     M.from,
+    //     {
+    //         image: {
+    //             url: `https://i.ytimg.com/vi/${videoDetails.videoId}/maxresdefault.jpg`
+    //         },
+    //         caption: text
+    //     }
+    // )
+    if (Number(videoDetails.lengthSeconds) > 18000) return M.reply('Cannot download video longer than 300 minutes')
+    let caption = `*${videoDetails.title}*`
     const audio = YT.getBuffer(term, 'video')
         .then(async (res) => {
             await client.sendMessage(
                 M.from,
                 {
-                    document: res,
-                    mimetype: 'video/mp4',
-                    fileName: videoDetails.title + '.mp4'
-                },
+                    video: res,
+                    fileName: videoDetails.title + '.mp4',
+                    caption
+                }
+            )
+            client.sendMessage(
+                M.from,
                 {
-                    quoted: M
+                    image: {
+                        url: `https://i.ytimg.com/vi/${videoDetails.videoId}/maxresdefault.jpg`
+                    },
+                    caption: text
                 }
             )
         })

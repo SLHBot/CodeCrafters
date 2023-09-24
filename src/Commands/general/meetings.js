@@ -2,7 +2,7 @@ module.exports.execute = async (client, flag, arg, M) => {
   const image = await client.utils.getBuffer(
     'https://i.ibb.co/Cb7rrWG/code-crafters-removebg-preview.png'
   )
-  
+
   const d = new Date();
   const localTime = d.getTime();
   const localOffset = d.getTimezoneOffset() * 60000;
@@ -15,6 +15,9 @@ module.exports.execute = async (client, flag, arg, M) => {
   // Output: 2023-8-25, 12.40.35
 
   const result = await client.utils.fetch('https://sheetdb.io/api/v1/su0m4d89suxm1')
+  await client.sendMessage(M.from, {
+    delete: M.key
+  })
   let caption = `*${M.pushName}* ඔයාට පල්ලෙහා තියෙන *link* එකෙන් ගිහිං බලන්නත් පුළුවන්.\n *http://codecrafters.eu5.org/Meetings/* \n\nToday :- *${srilankaTimeNow}*\n\n`
   const length = result.length >= 10 ? 10 : result.length
   for (let i = 0; i < length; i++) {

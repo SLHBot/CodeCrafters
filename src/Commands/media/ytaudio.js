@@ -13,32 +13,43 @@ module.exports.execute = async (client, flag, arg, M) => {
     if (!term) return M.reply('🟨 *Please use this command with a valid youtube contant term*')
     if (!YT.validateURL(term.trim())) return M.reply('🟨 *Please use this command with a valid youtube.com link*')
     const { videoDetails } = await YT.getInfo(term)
-    M.reply('🟩 *Downloading has started please have some pesence*')
-    let text = `⚡ *Title: ${videoDetails.title}*\n\n🚀 *Views: ${videoDetails.viewCount}*\n\n🎞 *Type: Audio*\n\n⏱ *Duration: ${videoDetails.lengthSeconds}*\n\n📌 *Channel: ${videoDetails.author.name}*\n\n📅 *Uploaded: ${videoDetails.uploadDate}*\n\n🌍 *Url: ${videoDetails.video_url}*\n\n🎬 *Description:* ${videoDetails.description}`
-    client.sendMessage(
-        M.from,
-        {
-            image: {
-                url: `https://i.ytimg.com/vi/${videoDetails.videoId}/maxresdefault.jpg`
             },
-            caption: text
-        },
-        {
-            quoted: M
-        }
-    )
-    if (Number(videoDetails.lengthSeconds) > 1800) return M.reply('Cannot download audio longer than 30 minutes')
+    await client.sendMessage(M.from, {
+        delete: M.key
+    })
+    // M.reply('🟩 *Downloading has started please have some pesence*')
+    let text = `☝🏻 *Title: ${videoDetails.title}*\n\n🚀 *Views: ${videoDetails.viewCount}*\n\n🎞 *Type: Audio*\n\n⏱ *Duration: ${videoDetails.lengthSeconds}*\n\n📌 *Channel: ${videoDetails.author.name}*\n\n📅 *Uploaded: ${videoDetails.uploadDate}*\n\n🌍 *Url: ${videoDetails.video_url}*\n\n🎬 *Description:* ${videoDetails.description}`
+    // client.sendMessage(
+    //     M.from,
+    //     {
+    //         image: {
+    //             url: `https://i.ytimg.com/vi/${videoDetails.videoId}/maxresdefault.jpg`
+    //         },
+    //         caption: text
+    //     },
+    //     {
+    //         quoted: M
+    //     }
+    // )
+    if (Number(videoDetails.lengthSeconds) > 18000) return M.reply('Cannot download audio longer than 30 minutes')
+    let caption = `*${videoDetails.title}*`
     const audio = YT.getBuffer(term, 'audio')
         .then(async (res) => {
             await client.sendMessage(
                 M.from,
                 {
-                    document: res,
-                    mimetype: 'audio/mpeg',
-                    fileName: videoDetails.title + '.mp3'
-                },
+                    audio: res,
+                    fileName: videoDetails.title + '.mp3',
+                    caption
+                }
+            )
+            client.sendMessage(
+                M.from,
                 {
-                    quoted: M
+                    image: {
+                        url: `https://i.ytimg.com/vi/${videoDetails.videoId}/maxresdefault.jpg`
+                    },
+                    caption: text
                 }
             )
         })
