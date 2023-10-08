@@ -13,7 +13,6 @@ module.exports.execute = async (client, flag, arg, M) => {
     if (!term) return M.reply('🟨 *Please use this command with a valid youtube contant term*')
     if (!YT.validateURL(term.trim())) return M.reply('🟨 *Please use this command with a valid youtube.com link*')
     const { videoDetails } = await YT.getInfo(term)
-            },
     await client.sendMessage(M.from, {
         delete: M.key
     })
