@@ -4,32 +4,37 @@ const sortArray = require('sort-array')
 module.exports.execute = async (client, flag, arg, M) => {
     const group = ['--gc', '--group']
     const groupMetadata = await client.groupMetadata(M.from)
-    const groupMembers = groupMetadata?.participants.map((x) => x.id.split('.whatsapp.net')[0]) || []
-    const all_users = Object.values(await client.exp.all()).map((x) => ({ user: x.id, xp: x.value.whatsapp.net })) || []
-    const users = group.includes(flag[0]) ? all_users.filter((x) => groupMembers.includes(x.user)) : all_users
+    const groupMembers = groupMetadata?.participants.map((x) => x.id.split('.whatsapp.net')[0]) ?? []
+    const exp = Object.values(await client.exp.all()) ?? []
 
-    const leaderboard = sortArray(users, {
+    const users = exp.map((x) => ({
+        user: x.id,
+        xp: x.value.whatsapp.net
+    }))
+
+    const lb = sortArray(users, {
         by: 'xp',
         order: 'desc'
     })
 
-    if (leaderboard.length < 10) return M.reply('🟥 *Sorry there is no enough users to create a leaderboard*')
-    const myPosition = leaderboard.findIndex((x) => x.user == M.sender.split('.whatsapp.net')[0])
+    const filtered = group.includes(flag[0]) ? lb.filter((x) => groupMembers.includes(x.user)) : lb
+
+    if (filtered.length < 10) return M.reply('🟥 *Sorry there is no enough users to create a leaderboard*')
+    const myPosition = filtered.findIndex((x) => x.user == M.sender.split('.whatsapp.net')[0])
     let text = `☆☆💥 LEADERBOARD 💥☆☆\n\n*${
         (await client.contact.getContact(M.sender, client)).username
     }'s Position is ${myPosition + 1}*`
     for (let i = 0; i < 10; i++) {
-        const level = (await client.DB.get(`${leaderboard[i].user}.whatsapp.net_LEVEL`)) || 1
+        const level = (await client.DB.get(`${filtered[i].user}.whatsapp.net_LEVEL`)) ?? 1
         const { requiredXpToLevelUp, rank } = getStats(level)
-        const username = (await client.contact.getContact(leaderboard[i].user, client)).username.whatsapp.net
-        const experience = (await client.exp.get(leaderboard[i].user)).whatsapp.net || 0
-        text += `\n\n*>${i + 1}*\n`
-        text += `🏮 *Username: ${username}*#${leaderboard[i].user.substring(
+        const username = (await client.contact.getContact(filtered[i].user, client)).username.whatsapp.net
+        text += `\n\n*(${i + 1})*\n`
+        text += `⛩ *Username: ${username}*#${filtered[i].user.substring(
             3,
             7
-        )}\n〽️ *Level: ${level}*\n🎡 *Rank: ${rank}*\n💰 *Cradit: ${
-            leaderboard[i].wallet + leaderboard[i].bank
-        }*\n⭐ *Exp: ${experience}*\n🍥 *RequiredXpToLevelUp: ${requiredXpToLevelUp} exp required*`
+        )}\n〽️ *Level: ${level}*\n🎡 *Rank: ${rank}*\n⭐ *Exp: ${
+            filtered[i].xp
+        }*\n🍥 *RequiredXpToLevelUp: ${requiredXpToLevelUp} exp required*`
     }
 
     client.sendMessage(

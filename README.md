@@ -105,14 +105,14 @@ npm install
 Create .env file based on .env.example, copy the mongo database URL into .env file
 
 ```bash
-NAME=Krypton
-PREFIX=!
-MODS=917003213xxx
+NAME=CodeCrafters
+PREFIX=@
+MODS=94755681782
 PORT=3000
 WRITE_SONIC=
 BG_API_KEY=
 SESSION=
-URL=mongodb+srv://<username>:<password>@cluster0.xxwc771.mongodb.net/?retryWrites=true&w=majority
+URL=mongodb+srv://CodeCrafters:WDtharushi1@cluster0.4ovd1o4.mongodb.net/
 ```
 
 </section>

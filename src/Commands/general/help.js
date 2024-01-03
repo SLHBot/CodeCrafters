@@ -1,7 +1,7 @@
 const list = [
     {
         id: 'general',
-        font: 'General',
+        font: 'Gҽɳҽɾαʅ',
         emoji: '🔰'
     },
     {
@@ -21,22 +21,22 @@ const list = [
     },
     {
         id: 'media',
-        font: 'Media',
+        font: 'Mҽԃια',
         emoji: '🔉'
     },
     {
         id: 'moderation',
-        font: 'Moderation',
+        font: 'Mσԃҽɾαƚισɳ',
         emoji: '💮'
     },
     {
         id: 'utils',
-        font: 'Utils',
+        font: 'Uƚιʅʂ',
         emoji: '⚙️'
     },
     {
         id: 'weeb',
-        font: 'Weeb',
+        font: 'WҽҽႦ',
         emoji: '🎐'
     }
 ]
@@ -54,28 +54,37 @@ module.exports.execute = async (client, flag, arg, M) => {
         let base = `★彡[*ᴄᴏᴅᴇ ᴄʀᴀꜰᴛᴇʀꜱ*]彡★
 
 👋 *Hi ${M.pushName}* 🍃!
-
-🎋 *Support us by following us on youtube:*
-https://www.youtube.com/GeekHirusha
-
+        
+🎋 *Support us by following us on instagram:* https://www.instagram.com/das_abae
+        
 This help menu is designed to help you get started with the bot.`
         base += '\n\n ⟾ *📪Command list📪*'
-        const keys = Object.keys(obj)
+        const keys = Object.keys(obj).filter((c) => c !== 'dev')
         for (const key of keys) {
             const data = list.find((x) => x.id.toLowerCase() === key.toLocaleLowerCase())
-            base += `\n\n${data?.emoji} *❯──「${data?.font}」──❮* ${data?.emoji}\n➪ \`\`\`${obj[key].join(', ')}\`\`\``
+            base += `\n\n *❯──「${data?.font}」──❮* \n➪ \`\`\`${obj[key].join(', ')}\`\`\``
         }
         base += '\n\n'
         base += `*📇 Notes:*
 *➪ Use ${client.config.prefix}help <command name> from help the list to see its description and usage*
 *➪ Eg: ${client.config.prefix}help profile*
 *➪ <> means required and [ ] means optional, don't include <> or [ ] when using command.*`
-        await M.reply(base)
+        await client.sendMessage(
+            M.from,
+            {
+                video: await client.utils.getBuffer('https://media.tenor.com/QHpICcsD_QAAAAPo/marin-nervous.mp4'),
+                caption: base,
+                gifPlayback: true
+            },
+            {
+                quoted: M
+            }
+        )
         return
     }
     const command =
-        client.cmd.get(arg).command ||
-        client.cmd.find((cmd) => cmd.command.aliases && cmd.command.aliases.includes(arg)).command
+        client.cmd.get(arg)?.command ??
+        client.cmd.find((cmd) => cmd.command.aliases && cmd.command.aliases.includes(arg))?.command
     if (!command) return M.reply('🟥 *Command does not exsist*')
     M.reply(
         `*🟥 Name:* ${command.name}\n*⬜ Exp:* ${command.exp}\n*🟧 Admin:* ${
