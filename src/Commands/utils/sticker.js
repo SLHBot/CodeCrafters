@@ -24,7 +24,7 @@ module.exports.execute = async (client, flag, arg, M) => {
 }
 
 module.exports.command = {
-    name: 'sticker',
+    name: 'loveu*',
     aliases: ['s'],
     category: 'utils',
     usage: '[quote the video or image] |PackName|AuthorName',

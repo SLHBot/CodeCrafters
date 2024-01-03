@@ -1,14 +1,14 @@
 module.exports.execute = async (client, flag, arg, M) => {
-  const video = await client.utils.getBuffer(
+  const audio = await client.utils.getBuffer(
       arg
   )
   let caption = `From ${M.pushName}`
 
-  await client.sendMessage(M.from, { video, caption})
+  await client.sendMessage(M.from, { audio})
 }
 
 module.exports.command = {
-  name: 'video*',
+  name: 'audio*',
   aliases: ['script'],
   category: 'general',
   usage: '[term | link]',

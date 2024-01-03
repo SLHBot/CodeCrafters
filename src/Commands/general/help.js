@@ -1,7 +1,7 @@
 const list = [
     {
         id: 'general',
-        font: 'Gҽɳҽɾαʅ',
+        font: 'General',
         emoji: '🔰'
     },
     {
@@ -21,22 +21,22 @@ const list = [
     },
     {
         id: 'media',
-        font: 'Mҽԃια',
+        font: 'Media',
         emoji: '🔉'
     },
     {
         id: 'moderation',
-        font: 'Mσԃҽɾαƚισɳ',
+        font: 'Moderation',
         emoji: '💮'
     },
     {
         id: 'utils',
-        font: 'Uƚιʅʂ',
+        font: 'Utils',
         emoji: '⚙️'
     },
     {
         id: 'weeb',
-        font: 'WҽҽႦ',
+        font: 'Weeb',
         emoji: '🎐'
     }
 ]
@@ -51,7 +51,7 @@ module.exports.execute = async (client, flag, arg, M) => {
                 obj[item.command.category].push(item.command.name)
             }
         })
-        let base = `⛩️ *❯──「Kɾყρƚσɳ」──❮* ⛩️
+        let base = `★彡[*ᴄᴏᴅᴇ ᴄʀᴀꜰᴛᴇʀꜱ*]彡★
 
 👋 *Hi ${M.pushName}* 🍃!
 
